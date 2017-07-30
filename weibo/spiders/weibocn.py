@@ -52,8 +52,8 @@ class WeiboSpider(Spider):
             yield Request(self.fan_url.format(uid=uid, page=1), callback=self.parse_fans,
                           meta={'page': 1, 'uid': uid})
             # 微博
-            yield Request(self.weibo_url.format(uid=uid, page=1), callback=self.parse_weibos,
-                          meta={'page': 1, 'uid': uid})
+            # yield Request(self.weibo_url.format(uid=uid, page=1), callback=self.parse_weibos,
+            #               meta={'page': 1, 'uid': uid})
     
     def parse_follows(self, response):
         result = json.loads(response.text)
@@ -69,12 +69,12 @@ class WeiboSpider(Spider):
             uid = response.meta.get('uid')
             
             user_relation_item = UserRelationItem()
-            print(follows)
             follows = [{'id': follow.get('user').get('id'), 'name': follow.get('user').get('screen_name')} for follow in
                        follows]
             user_relation_item['id'] = uid
             user_relation_item['follows'] = follows
             user_relation_item['fans'] = []
+            print(user_relation_item)
             yield user_relation_item
             # 下一页关注
             page = response.meta.get('page') + 1
@@ -100,6 +100,7 @@ class WeiboSpider(Spider):
             user_relation_item['id'] = uid
             user_relation_item['fans'] = fans
             user_relation_item['follows'] = []
+            print(user_relation_item)
             yield user_relation_item
             # 下一页粉丝
             page = response.meta.get('page') + 1

@@ -21,7 +21,7 @@ class BasePipeline():
                 item['updated_at'] = now
             else:
                 item['updated_at'] = now
-            return item
+        return item
 
 
 class WeiboPipeline():
@@ -41,6 +41,8 @@ class WeiboPipeline():
             if item.get('created_at'):
                 item['created_at'] = item['created_at'].strip()
                 item['created_at'] = self.parse_time(item.get('created_at'))
+            if item.get('pictures'):
+                item['pictures'] = [pic.get('url') for pic in item.get('pictures')]
         return item
 
 

@@ -51,9 +51,11 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'weibo.middlewares.MyCustomDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    'weibo.middlewares.CookiesMiddleware': 543,
+    'weibo.middlewares.ProxyMiddleware': 555,
+    
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -64,9 +66,9 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'weibo.pipelines.BasePipeline': 300,
-   'weibo.pipelines.WeiboPipeline': 301,
-   'weibo.pipelines.MongoPipeline': 302,
+    'weibo.pipelines.BasePipeline': 300,
+    'weibo.pipelines.WeiboPipeline': 301,
+    'weibo.pipelines.MongoPipeline': 302,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,7 +92,10 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-DOWNLOAD_DELAY = 1
 
 MONGO_URI = 'localhost'
 MONGO_DATABASE = 'weibo'
+
+COOKIES_URL = 'http://localhost:5000/weibo/random'
+
+PROXY_URL = 'http://localhost:5555/random'
