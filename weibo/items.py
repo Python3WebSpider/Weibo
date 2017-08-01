@@ -26,7 +26,6 @@ class UserItem(Item):
     follows = Field()
     fans = Field()
     crawled_at = Field()
-    updated_at = Field()
 
 
 class UserRelationItem(Item):
@@ -51,7 +50,7 @@ class WeiboItem(Item):
     raw_text = Field()
     thumbnail = Field()
     user = Field()
+    created_at = Field()
     crawled_at = Field()
-    updated_at = Field()
 
 

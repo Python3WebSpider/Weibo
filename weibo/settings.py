@@ -20,6 +20,16 @@ NEWSPIDER_MODULE = 'weibo.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
+DEFAULT_REQUEST_HEADERS = {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Encoding': 'gzip, deflate, sdch',
+    'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4,zh-TW;q=0.2,mt;q=0.2',
+    'Connection': 'keep-alive',
+    'Host': 'm.weibo.cn',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+    'X-Requested-With': 'XMLHttpRequest',
+}
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32
 
@@ -52,9 +62,8 @@ ROBOTSTXT_OBEY = False
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'weibo.middlewares.CookiesMiddleware': 543,
+    'weibo.middlewares.CookiesMiddleware': 554,
     'weibo.middlewares.ProxyMiddleware': 555,
-    
 }
 
 # Enable or disable extensions
@@ -66,7 +75,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'weibo.pipelines.BasePipeline': 300,
+    'weibo.pipelines.TimePipeline': 300,
     'weibo.pipelines.WeiboPipeline': 301,
     'weibo.pipelines.MongoPipeline': 302,
 }
@@ -94,8 +103,11 @@ ITEM_PIPELINES = {
 
 
 MONGO_URI = 'localhost'
+
 MONGO_DATABASE = 'weibo'
 
 COOKIES_URL = 'http://localhost:5000/weibo/random'
 
 PROXY_URL = 'http://localhost:5555/random'
+
+RETRY_HTTP_CODES = [401, 403, 408, 414, 500, 502, 503, 504]

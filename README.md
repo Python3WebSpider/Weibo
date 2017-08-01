@@ -1,3 +1,3 @@
-# WeiboSpider
+# Weibo
 
-WeiboSpider Using Scrapy
+Weibo Spider Using Scrapy
