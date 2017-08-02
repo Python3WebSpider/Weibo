@@ -101,13 +101,18 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 
-MONGO_URI = 'localhost'
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+MONGO_URI = 'mongodb://admin:admin123@120.27.34.25:27017'
 
 MONGO_DATABASE = 'weibo'
 
-COOKIES_URL = 'http://localhost:5000/weibo/random'
+REDIS_URL = 'redis://:foobared@120.27.34.25:6379'
 
-PROXY_URL = 'http://localhost:5555/random'
+COOKIES_URL = 'http://120.27.34.25:5556/weibo/random'
+
+PROXY_URL = 'http://120.27.34.25:5555/random'
 
 RETRY_HTTP_CODES = [401, 403, 408, 414, 500, 502, 503, 504]
