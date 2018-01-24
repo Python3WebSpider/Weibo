@@ -29,8 +29,8 @@ class WeiboSpider(Spider):
         """
         self.logger.debug(response)
         result = json.loads(response.text)
-        if result.get('userInfo'):
-            user_info = result.get('userInfo')
+        if result.get('data').get('userInfo'):
+            user_info = result.get('data').get('userInfo')
             user_item = UserItem()
             field_map = {
                 'id': 'id', 'name': 'screen_name', 'avatar': 'profile_image_url', 'cover': 'cover_image_phone',
@@ -58,10 +58,10 @@ class WeiboSpider(Spider):
         :param response: Response对象
         """
         result = json.loads(response.text)
-        if result.get('ok') and result.get('cards') and len(result.get('cards')) and result.get('cards')[-1].get(
+        if result.get('ok') and result.get('data').get('cards') and len(result.get('data').get('cards')) and result.get('data').get('cards')[-1].get(
             'card_group'):
             # 解析用户
-            follows = result.get('cards')[-1].get('card_group')
+            follows = result.get('data').get('cards')[-1].get('card_group')
             for follow in follows:
                 if follow.get('user'):
                     uid = follow.get('user').get('id')
@@ -87,10 +87,10 @@ class WeiboSpider(Spider):
         :param response: Response对象
         """
         result = json.loads(response.text)
-        if result.get('ok') and result.get('cards') and len(result.get('cards')) and result.get('cards')[-1].get(
+        if result.get('ok') and result.get('data').get('cards') and len(result.get('data').get('cards')) and result.get('data').get('cards')[-1].get(
             'card_group'):
             # 解析用户
-            fans = result.get('cards')[-1].get('card_group')
+            fans = result.get('data').get('cards')[-1].get('card_group')
             for fan in fans:
                 if fan.get('user'):
                     uid = fan.get('user').get('id')
@@ -116,8 +116,8 @@ class WeiboSpider(Spider):
         :param response: Response对象
         """
         result = json.loads(response.text)
-        if result.get('ok') and result.get('cards'):
-            weibos = result.get('cards')
+        if result.get('ok') and result.get('data').get('cards'):
+            weibos = result.get('data').get('cards')
             for weibo in weibos:
                 mblog = weibo.get('mblog')
                 if mblog:
